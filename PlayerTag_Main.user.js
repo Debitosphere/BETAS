@@ -142,11 +142,11 @@
             
             var scriptsButton = qx.core.Init.getApplication().getMenuBar().getScriptsButton();
 
-            scriptsButton.Add('Update Tags/Name from Server', '');
+            scriptsButton.Add('MODDED Update Tags/Name from Server', '');
             children = scriptsButton.getMenu().getChildren();
             lastChild = children[children.length - 1];
-            //lastChild.addListener('execute', PlayerTag_Main);
-            lastChild.addListener('execute', updateFromServer, PlayerTag_Main);
+            //lastChild.addListener('execute', crPlayerTag_Main);
+            lastChild.addListener('execute', updateFromServer, crPlayerTag_Main);
 
             ClientLib.Vis.Region.RegionNPCBase.prototype.BaseColor = function (baseColor) {
                 try {
@@ -156,7 +156,7 @@
                         return "#ffffff";//ff5a00
                     }
                 } catch (ex) {
-                    console.log("MaelstromTools_PlayerTag error: ", ex);
+                    console.log("MaelstromTools_crPlayerTag error: ", ex);
                 }
                 return baseColor;
             };
@@ -170,7 +170,7 @@
 					
                     }
                 } catch (ex) {
-                    console.log("MaelstromTools_PlayerTag error: ", ex);
+                    console.log("MaelstromTools_crPlayerTag error: ", ex);
                 }
                 return baseName;
             };
@@ -185,7 +185,7 @@
                         return "[" + tagArray[playerName] + "] " + baseName;
                     }
                 } catch (ex) {
-                    console.log("MaelstromTools_PlayerTag error: ", ex);
+                    console.log("MaelstromTools_crPlayerTag error: ", ex);
                 }
                 return baseName;
             };
@@ -456,7 +456,7 @@
         if (/commandandconquer\.com/i.test(document.domain)) {
             var scriptTag = document.createElement("script");
             scriptTag.id = "xxx";
-            scriptTag.innerHTML = "(" + PlayerTag_Main.toString() + ")();";
+            scriptTag.innerHTML = "(" + crPlayerTag_Main.toString() + ")();";
             scriptTag.type = "text/javascript";
             document.getElementsByTagName("head")[0].appendChild(scriptTag);
         }
