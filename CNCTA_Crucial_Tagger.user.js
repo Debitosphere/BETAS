@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        CnC TA: Crucial TAGGER
-// @description Allows a player to tag bases to be killed and added to a list that can be managed by the alliance CiC
-// @version     0.01b
+// @description Allows a CiC to tag bases to be killed and added to a list that can be viewed by alliance members.
+// @version     0.08b
 // @author      DebitoSphere
 // @homepage    https://www.allyourbasesbelong2us.com
 // @namespace   AllYourBasesbelong2UsCrucialTAGGER
