@@ -7,7 +7,7 @@
 // @namespace   AllYourBasesbelong2UsCrucialTAGGER
 // @include     http*://*alliances*.com/*
 // @include     https://prodgame*.alliances.commandandconquer.com/*/index.aspx*
-// @updateURL   https://raw.githubusercontent.com/zbluebugz/CnC-TA-Opt/master/CnCTAOpt.link.user.js
+// @updateURL   https://github.com/Debitosphere/BETAS/raw/master/CNCTA_Crucial_Tagger.user.js
 // @grant       GM_log
 // @grant       GM_setValue
 // @grant       GM_getValue
