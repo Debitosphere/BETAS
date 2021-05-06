@@ -152,7 +152,7 @@
                     var baseCoordX = this.get_RawX();
                     var baseCoordY = this.get_RawY();
                     if (tagArray[baseCoordX+':'+baseCoordY] !== undefined && tagArray[baseCoordX+':'+baseCoordY] !== "") {
-                        return "#ffffff";//ff5a00
+                        return "#FF0000";//ff5a00
                     }
                 } catch (ex) {
                     console.log("MaelstromTools_PlayerTag error: ", ex);
