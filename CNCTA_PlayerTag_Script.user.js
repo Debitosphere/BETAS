@@ -1,16 +1,13 @@
 // ==UserScript==
-// @name        modded CnCTA PlayerTag Script
+// @name        CnCTA PlayerTag Script for players
 // @namespace   http*://cncapp*.alliances.commandandconquer.com/*/index.aspx*
-// @description Allow to set tags for players
+// @description Allow to see tags for players
 // @include     http*://cncapp*.alliances.commandandconquer.com/*/index.aspx*
 // @include     https://www.ea.com/games/command-and-conquer/command-and-conquer-tiberium-alliances*
-// @updateURL   https://github.com/Debitosphere/BETAS/raw/master/PlayerTag_Main.user.js
+// @updateURL   https://github.com/Debitosphere/BETAS/raw/master/CNCTA_PlayerTag_Script.user.js
 // @version     3.0
 // @author      Alkalyne modded
 // ==/UserScript==
-/*global PerforceChangelist,window,localStorage, console, ClientLib, MaelstromTools*/
-//
-// NOTE : Prototype
 //
 (function () {
     window.navigator.pointerEnabled = "PointerEvent" in window;
