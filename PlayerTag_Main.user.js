@@ -1,9 +1,10 @@
 // ==UserScript==
-// @name        modded PlayerTag Script
+// @name        modded CnCTA PlayerTag Script
 // @namespace   http*://cncapp*.alliances.commandandconquer.com/*/index.aspx*
 // @description Allow to set tags for players
 // @include     http*://cncapp*.alliances.commandandconquer.com/*/index.aspx*
-// @version     2.88
+// @include     https://www.ea.com/games/command-and-conquer/command-and-conquer-tiberium-alliances*
+// @version     3.0
 // @author      Alkalyne modded
 // ==/UserScript==
 /*global PerforceChangelist,window,localStorage, console, ClientLib, MaelstromTools*/
@@ -13,13 +14,13 @@
 (function () {
     window.navigator.pointerEnabled = "PointerEvent" in window;
     function crPlayerTag_Main() {
-        
+
         var worldId;
-        
-        var re = /.*\/([0-9]*)\//; 
+
+        var re = /.*\/([0-9]*)\//;
         var str = window.location.href ;
         var m;
-         
+
         if ((m = re.exec(str)) !== null) {
             if (m.index === re.lastIndex) {
                 re.lastIndex++;
@@ -28,11 +29,11 @@
         } else {
             return;
         }
-        
-        
-        
+
+
+
         var localStorageKey = "CCTA_MaelstromTools_CC_CrucialPlayerTag_"+worldId;
-        
+
         var tagArray = {};
         var oldTagArray = {};
         var tagJsonData = localStorage.getItem(localStorageKey);
@@ -41,8 +42,8 @@
         } else {
             localStorage.setItem(localStorageKey, JSON.stringify(tagArray));
         }
-            
-        
+
+
         var button;
         var selectedObjectMemberName;
         var worldSectorObjectsMemberName;
@@ -50,20 +51,20 @@
         var worldSectorVersionMemberName;
         var regionUpdateMethodName;
         var visObjectTypeNameMap = {};
-        
-        
+
+
         function CityPlayerTagInclude() {
             visObjectTypeNameMap[ClientLib.Vis.VisObject.EObjectType.RegionCityType] = ClientLib.Vis.Region.RegionCity.prototype.get_ConditionDefense.toString().match(/&&\(this\.([A-Z]{6})\.[A-Z]{6}>=0\)/)[1];
             console.log("check 1");
 			visObjectTypeNameMap[ClientLib.Vis.VisObject.EObjectType.RegionNPCBase] = ClientLib.Vis.Region.RegionNPCBase.prototype.get_BaseLevel.toString().match(/return this\.([A-Z]{6})\.[A-Z]{6};/)[1];
             console.log("check 2");
 			worldSectorObjectsMemberName = ClientLib.Data.WorldSector.prototype.SetDetails.toString()
-			//			.match(/case \$I\.[A-Z]{6}\.City:{.+?this\.([A-Z]{6})\.[A-Z]{6}\(\(\(e<<0x10\)\|d\),g\);.+?var h=this\.([A-Z]{6})\.d\[g\.[A-Z]{6}\];if\(h==null\){return false;}var i=\(\(h\.([A-Z]{6})!=0\) \? this\.([A-Z]{6})\.d\[h\.\3\] : null\);/)[1];    
+			//			.match(/case \$I\.[A-Z]{6}\.City:{.+?this\.([A-Z]{6})\.[A-Z]{6}\(\(\(e<<0x10\)\|d\),g\);.+?var h=this\.([A-Z]{6})\.d\[g\.[A-Z]{6}\];if\(h==null\){return false;}var i=\(\(h\.([A-Z]{6})!=0\) \? this\.([A-Z]{6})\.d\[h\.\3\] : null\);/)[1];
 						.match(/case \$I\.[A-Z]{6}\.City:.+?this\.([A-Z]{6})\.[A-Z]{6}\(\(\(e<<16\)\|d\),g\);.+?var h=this\.([A-Z]{6})\.d\[g\.[A-Z]{6}\];if\(h==null\){return false;}var i=\(\(h\.([A-Z]{6})!=0\)\?this\.([A-Z]{6})\.d\[h\.\3\]:null\);/);
 			console.log("check 3");
 			updateData$ctorMethodName = ClientLib.Vis.MouseTool.CreateUnitTool.prototype.Activate.toString()
-						.match(/\$I\.[A-Z]{6}\.[A-Z]{6}\(\)\.[A-Z]{6}\(\)\.[A-Z]{6}\(\)\.[A-Z]{6}\(\(new \$I\.[A-Z]{6}\)\.([A-Z]{6})\(this,this\.[A-Z]{6}\)\);/)[1];            
-            
+						.match(/\$I\.[A-Z]{6}\.[A-Z]{6}\(\)\.[A-Z]{6}\(\)\.[A-Z]{6}\(\)\.[A-Z]{6}\(\(new \$I\.[A-Z]{6}\)\.([A-Z]{6})\(this,this\.[A-Z]{6}\)\);/)[1];
+
             console.log("check 4");
 			regionUpdateMethodName = ClientLib.Vis.Region.Region.prototype.SetPosition.toString()
 						.match(/this\.([A-Z]{6})\(\);/)[1];
@@ -125,21 +126,21 @@
                 if (tagButton.lastBaseName !== null) {
                     var baseCoordX = tagButton.selectedBase.get_RawX();
                     var baseCoordY = tagButton.selectedBase.get_RawY();
-                    
-                    
+
+
                         tagArray[baseCoordX+':'+baseCoordY]=tagButton.lastBaseName;
                         localStorage.setItem(localStorageKey, JSON.stringify(tagArray));
                         tagButton.selectedBase.VisUpdate(20,0,false);
-                    
+
                     refreshWorldObject(tagButton.selectedBase.get_RawX(),tagButton.selectedBase.get_RawY());
                 }
 
               }
-              
-              
-              
+
+
+
             };
-            
+
             var scriptsButton = qx.core.Init.getApplication().getMenuBar().getScriptsButton();
 
             scriptsButton.Add('MODDED Update Tags/Name from Server', '');
@@ -156,27 +157,27 @@
                         return "#ffffff";//ff5a00
                     }
                 } catch (ex) {
-                    console.log("MaelstromTools_crPlayerTag error: ", ex);
+                    console.log("MaelstromTools_PlayerTag error: ", ex);
                 }
                 return baseColor;
             };
-            
+
             ClientLib.Vis.Region.RegionNPCBase.prototype.BaseName = function (baseName) {
                 try {
                     var baseCoordX = this.get_RawX();
                     var baseCoordY = this.get_RawY();
                     if (tagArray[baseCoordX+':'+baseCoordY] !== undefined && tagArray[baseCoordX+':'+baseCoordY] !== "") {
                         return tagArray[baseCoordX+':'+baseCoordY];
-					
+
                     }
                 } catch (ex) {
-                    console.log("MaelstromTools_crPlayerTag error: ", ex);
+                    console.log("MaelstromTools_PlayerTag error: ", ex);
                 }
                 return baseName;
             };
             createBasePlateFunction(ClientLib.Vis.Region.RegionNPCBase);
-           
-        
+
+
             var regionCityPrototype = ClientLib.Vis.Region.RegionCity.prototype;
             regionCityPrototype.BaseNameTag = function (baseName) { //ff5a00
                 try {
@@ -185,11 +186,11 @@
                         return "[" + tagArray[playerName] + "] " + baseName;
                     }
                 } catch (ex) {
-                    console.log("MaelstromTools_crPlayerTag error: ", ex);
+                    console.log("MaelstromTools_PlayerTag error: ", ex);
                 }
                 return baseName;
             };
-            
+
 
             var updateColorParts = g(regionCityPrototype.UpdateColor, /createHelper;this\.([A-Z]{6})\(/, "ClientLib.Vis.Region.RegionCity UpdateColor", 1);
             var setCanvasValue_Name = updateColorParts[1];
@@ -197,7 +198,7 @@
                 console.error("Error - ClientLib.Vis.Region.RegionCity.SetCanvasValue undefined");
                 return;
             }
-            
+
             regionCityPrototype.SetCanvasValueTag_ORG = regionCityPrototype[setCanvasValue_Name];
             var setCanvasValueFunctionBody = getFunctionBody(regionCityPrototype.SetCanvasValueTag_ORG);
             regionCityPrototype.SetCanvasValueTag_BODY = setCanvasValueFunctionBody;
@@ -206,11 +207,11 @@
                 /if\(\(this\.([A-Z]{6})\.Text\!=i\)\|\|\(this\.([A-Z]{6})\.Color\!=g\)\)\{f=true;this\.([A-Z]{6})\.Text=i;this\.([A-Z]{6})\.Color=g;/im,
                 "if((this.$1.Text!=this.BaseNameTag(i))||(this.$2.Color!=g)){f=true;this.$3.Text=this.BaseNameTag(i);this.$4.Color=g;");
             regionCityPrototype[setCanvasValue_Name] = new Function("a", "b", setCanvasValueFunctionBodyFixed);
-            regionCityPrototype.SetCanvasValueTag_FIXED = new Function("a", "b", setCanvasValueFunctionBodyFixed); 
+            regionCityPrototype.SetCanvasValueTag_FIXED = new Function("a", "b", setCanvasValueFunctionBodyFixed);
 
-            var regionNPCBasePrototype = ClientLib.Vis.Region.RegionNPCBase.prototype;         
+            var regionNPCBasePrototype = ClientLib.Vis.Region.RegionNPCBase.prototype;
 
-            var url = PT.util.urlGet(worldId,ClientLib.Data.MainData.GetInstance().get_Alliance().get_Id());         
+            var url = PT.util.urlGet(worldId,ClientLib.Data.MainData.GetInstance().get_Alliance().get_Id());
             PT.util.ajax('GET', url, null, function(xhr){
                             if (xhr.responseText !=null && xhr.responseText != ""){
                                 tagArray = JSON.parse(xhr.responseText);
@@ -226,13 +227,13 @@
             var sector = ClientLib.Data.MainData.GetInstance().get_World().GetWorldSectorByCoords(x, y);
             if(sector != null){
                var encodedSectorCoords = ((y % 0x20) << 0x10) | (x % 0x20);
-               var worldObject=sector[worldSectorObjectsMemberName].d[encodedSectorCoords]; 
+               var worldObject=sector[worldSectorObjectsMemberName].d[encodedSectorCoords];
 			   if (worldObject == undefined) {
 				   return;
 			   }
-               delete sector[worldSectorObjectsMemberName].d[encodedSectorCoords]; 
-            }         
-            
+               delete sector[worldSectorObjectsMemberName].d[encodedSectorCoords];
+            }
+
             ClientLib.Vis.VisMain.GetInstance().get_Region()[regionUpdateMethodName]();
             setTimeout(function() {
                 insertWorldObject(x, y, worldObject);
@@ -240,7 +241,7 @@
             }, 50);
             ClientLib.Net.CommunicationManager.GetInstance().RegisterDataReceiver('WORLD', (new ClientLib.Net.UpdateData)[updateData$ctorMethodName](this, updateWorldDetour));
         }
-        
+
         function insertWorldObject(x, y, worldObject){
             var sector = ClientLib.Data.MainData.GetInstance().get_World().GetWorldSectorByCoords(x, y);
             if(sector != null){
@@ -249,9 +250,9 @@
                 sector[worldSectorVersionMemberName] = 0;
             }
         }
-        
+
         function getWorldObject(regionObject) {
-            
+
             var visObjectType = regionObject.get_VisObjectType();
 
             if (visObjectType in visObjectTypeNameMap) {
@@ -260,8 +261,8 @@
 
             return ClientLib.Data.MainData.GetInstance().get_World().GetObjectFromPosition(regionObject.get_RawX(), regionObject.get_RawY());
         }
-                
-        
+
+
         function updateWorldDetour(type, data) {
             var world = ClientLib.Data.MainData.GetInstance().get_World();
             world.Update(type, data);
@@ -271,8 +272,8 @@
                 ClientLib.Net.CommunicationManager.GetInstance().RegisterDataReceiver('WORLD', (new ClientLib.Net.UpdateData)[updateData$ctorMethodName](world, world.Update));
             }
         }
-						
-        
+
+
         function createBasePlateFunction(r) {
             try {
                 var regionObject = r.prototype;
@@ -295,7 +296,7 @@
                                     /var g=([^;]*);/im,
                                     "var g=this.BaseColor($1);");
                                 regionObject[key] = new Function("a", "b", "c", "d", "e", initBaseFunctionFixed);
-                                
+
                                 break;
                             }
                         }
@@ -315,17 +316,17 @@
         }
         function refreshTags(refreshTagArray){
            ClientLib.Data.MainData.GetInstance().get_Alliance().RefreshMemberData();
-           for (var attr in refreshTagArray) { 
+           for (var attr in refreshTagArray) {
                 if(attr.indexOf(":") != -1){
                     refreshWorldObject(attr.split(":")[0],attr.split(":")[1]);
                 }
            }
-                
+
         }
-        
-        
+
+
          function updateFromServer(){
-            var url = PT.util.urlGet(worldId,ClientLib.Data.MainData.GetInstance().get_Alliance().get_Id());         
+            var url = PT.util.urlGet(worldId,ClientLib.Data.MainData.GetInstance().get_Alliance().get_Id());
             PT.util.ajax('GET', url, null, function(xhr){
                             if (xhr.responseText !=null && xhr.responseText != ""){
                                 oldTagArray = tagArray;
@@ -334,7 +335,7 @@
 								//tagArray = res;
 								//console.log("ARRAY TAG: ", res)
                                 localStorage.setItem(localStorageKey, JSON.stringify(tagArray));
-                                
+
                                 var selectedObject = webfrontend.gui.region.RegionCityMenu.getInstance()[selectedObjectMemberName];
                                 if (selectedObject != null){
                                     //"Correction" Bug menu contextuel
@@ -342,16 +343,16 @@
                                     selectedBase[selectedObject.get_RawX()+":"+selectedObject.get_RawY()] = "";
                                     refreshTags(selectedBase);
                                 }
-                                
+
                                 refreshTags(difference(oldTagArray,tagArray));
                                 refreshTags(tagArray);
                             }
              });
         }
-        
+
         function difference(array1, array2) {
             var result = {};
-            
+
             for (var k in array1){
                 if (!array2.hasOwnProperty(k)) {
                      result[k] = array2[k];
@@ -360,7 +361,7 @@
 
             return result;
         }
-        
+
         function g(functionObject, regEx, m, p) {
             var functionBody = functionObject.toString();
             var shrinkedText = functionBody.replace(/\s/gim, "");
@@ -389,9 +390,9 @@
         function MaelstromTools_CityPlayerTagInclude_checkIfLoaded() {
             try {
                 if (typeof ClientLib !== "undefined" && ClientLib.Vis !== undefined && ClientLib.Vis.Region !== undefined && ClientLib.Vis.Region.RegionCity !== undefined && typeof qx !== 'undefined' && qx.core.Init.getApplication() && qx.core.Init.getApplication().initDone && ClientLib.Data.MainData.GetInstance().get_Alliance().get_Id() != 0) {
-                    
+
                     window.setTimeout(CityPlayerTagInclude, 1000);
-                    
+
                 } else {
                     window.setTimeout(MaelstromTools_CityPlayerTagInclude_checkIfLoaded, 1000);
                 }
@@ -399,7 +400,7 @@
                 console.log("MaelstromTools_CityPlayerTagInclude_checkIfLoaded: ", ex);
             }
         }
-        
+
         function MaelstromTools_CityPlayerTagTool_checkIfLoaded() {
             try {
                 if (typeof ClientLib === "undefined" || typeof MaelstromTools === "undefined") {
@@ -414,7 +415,7 @@
             window.setTimeout(MaelstromTools_CityPlayerTagInclude_checkIfLoaded, 1000);
             window.setTimeout(MaelstromTools_CityPlayerTagTool_checkIfLoaded, 30000);
         }
-        
+
         var PT = window.PT || {};
         PT.util = {
             URLGET: 'https://www.allyourbasesbelong2us.com/DbService/getPlayersTags.php',
@@ -446,12 +447,12 @@
         };
 
         window.PT = PT;
-                
-        
-    }
-    
 
-    
+
+    }
+
+
+
     try {
         if (/commandandconquer\.com/i.test(document.domain)) {
             var scriptTag = document.createElement("script");
@@ -463,6 +464,6 @@
     } catch (c) {
         console.log("MaelstromTools_CityPlayerTag: init error: ", c);
     }
-    
-    
+
+
 })();
