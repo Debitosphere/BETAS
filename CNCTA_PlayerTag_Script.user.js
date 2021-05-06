@@ -5,7 +5,7 @@
 // @include     http*://cncapp*.alliances.commandandconquer.com/*/index.aspx*
 // @include     https://www.ea.com/games/command-and-conquer/command-and-conquer-tiberium-alliances*
 // @updateURL   https://github.com/Debitosphere/BETAS/raw/master/CNCTA_PlayerTag_Script.user.js
-// @version     3.0
+// @version     3.1
 // @author      Alkalyne modded
 // ==/UserScript==
 //
