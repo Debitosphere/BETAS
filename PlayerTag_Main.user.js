@@ -4,6 +4,7 @@
 // @description Allow to set tags for players
 // @include     http*://cncapp*.alliances.commandandconquer.com/*/index.aspx*
 // @include     https://www.ea.com/games/command-and-conquer/command-and-conquer-tiberium-alliances*
+// @updateURL   https://github.com/Debitosphere/BETAS/raw/master/PlayerTag_Main.user.js
 // @version     3.0
 // @author      Alkalyne modded
 // ==/UserScript==
