@@ -2,9 +2,10 @@
 // @name         AUSMINERS BOT TIMER
 // @namespace    https://rtm.ausminers.com/
 // @description  Counts down time between Bot Checks
+// @author       Debitosphere
 // @match        https://*.ausminers.com/blocks
 // @updateURL   https://github.com/Debitosphere/BETAS/raw/master/AUSMINERS_BOT_TIMER.user.js
-// @version      1.01
+// @version      1.07
 // @grant       GM_log
 // @grant       GM_setValue
 // @grant       GM_getValue
