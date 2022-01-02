@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AUSMINERS AVN BOT BLOCK CHECKER
 // @namespace    https://watc.ausminers.com/
-// @version      1.03
+// @version      1.04
 // @description  Checks for AVN Block Status and Announces via Bot on Discord
 // @author       Debitosphere
 // @match        https://avn.ausminers.com/blocks
