@@ -31,7 +31,7 @@
 
     if (avnBLOCKSConfirmed2 > 0){
  				var xmlhttp = new XMLHttpRequest();
-                 	var url = "https://www.allyourbasesbelong2us.com/AUSMINERS/AVNService.php";
+                 	var url = "https://www.allyourbasesbelong2us.com/AUSMINERS/AVNServiceNew.php";
                  	var params = "functionname=sendAVNEmail&avnBLOCKSPending="+avnBLOCKSPending+"&avnBLOCKSConfirmed="+avnBLOCKSConfirmed;
     console.log(params);
 	                 xmlhttp.open("POST", url, false);
