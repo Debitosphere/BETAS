@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AUSMINERS AVN BOT BLOCK CHECKER
 // @namespace    https://watc.ausminers.com/
-// @version      1.02
+// @version      1.03
 // @description  Checks for AVN Block Status and Announces via Bot on Discord
 // @author       Debitosphere
 // @match        https://avn.ausminers.com/blocks
@@ -20,19 +20,19 @@
 (function() {
     'use strict';
 
-    var BLOCKPending=(document.getElementsByClassName("vhmiddle tdHistoryPending"));
-    var BLOCKConfirmed=(document.getElementsByClassName("vhmiddle tdHistoryConfirmed"));
+    var avnBLOCKPending=(document.getElementsByClassName("vhmiddle tdHistoryPending"));
+    var avnBLOCKConfirmed=(document.getElementsByClassName("vhmiddle tdHistoryConfirmed"));
 
-    var BLOCKSPending = BLOCKPending.tdHistoryPending.innerText;
-    var BLOCKSConfirmed = BLOCKConfirmed.tdHistoryConfirmed.innerText;
-    console.log("Block Pending: " + BLOCKSPending);
-    console.log("Blocks Confirmed: " + BLOCKSConfirmed);
-    var BLOCKSConfirmed2 = BLOCKSConfirmed;
+    var avnBLOCKSPending = avnBLOCKPending.tdHistoryPending.innerText;
+    var avnBLOCKSConfirmed = avnBLOCKConfirmed.tdHistoryConfirmed.innerText;
+    console.log("Block Pending: " + avnBLOCKSPending);
+    console.log("Blocks Confirmed: " + avnBLOCKSConfirmed);
+    var avnBLOCKSConfirmed2 = avnBLOCKSConfirmed;
 
-    if (BLOCKSConfirmed2 > 0){
+    if (avnBLOCKSConfirmed2 > 0){
  				var xmlhttp = new XMLHttpRequest();
                  	var url = "https://www.allyourbasesbelong2us.com/AUSMINERS/AVNService.php";
-                 	var params = "functionname=sendAVNEmail&BLOCKSPending="+BLOCKSPending+"&BLOCKSConfirmed="+BLOCKSConfirmed;
+                 	var params = "functionname=sendAVNEmail&avnBLOCKSPending="+avnBLOCKSPending+"&avnBLOCKSConfirmed="+avnBLOCKSConfirmed;
     console.log(params);
 	                 xmlhttp.open("POST", url, false);
          	        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
