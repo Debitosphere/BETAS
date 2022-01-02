@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AUSMINERS AVN BOT BLOCK CHECKER
 // @namespace    https://watc.ausminers.com/
-// @version      1.04
+// @version      1.05
 // @description  Checks for AVN Block Status and Announces via Bot on Discord
 // @author       Debitosphere
 // @match        https://avn.ausminers.com/blocks
@@ -29,7 +29,7 @@
     console.log("Blocks Confirmed: " + avnBLOCKSConfirmed);
     var avnBLOCKSConfirmed2 = avnBLOCKSConfirmed;
 
-    if (avnBLOCKSConfirmed2 > 0){
+    if (avnBLOCKSConfirmed2 >= 1){
  				var xmlhttp = new XMLHttpRequest();
                  	var url = "https://www.allyourbasesbelong2us.com/AUSMINERS/AVNServiceNew.php";
                  	var params = "functionname=sendAVNEmail&avnBLOCKSPending="+avnBLOCKSPending+"&avnBLOCKSConfirmed="+avnBLOCKSConfirmed;
