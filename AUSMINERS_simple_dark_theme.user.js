@@ -182,4 +182,5 @@ var all = document.getElementsByTagName("*");
 for (var i=0, max=all.length; i < max; i++) {
  all[i].style.color = "#c0c0c0";
 }
+document.body.style.color = "white";
 })();
